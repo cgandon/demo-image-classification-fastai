@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+import flickr_api
+from flickr_api import *
+import os
+import urllib.request
+from urllib.parse import urlparse
+
+flickr_api.set_keys(api_key = os.environ['FLICKR_KEY'], api_secret = os.environ['FLICKR_SECRET'])
+
+#w = Walker(Photo.search, tags=["boucheron","quatre"], tag_mode="all")
+w = Walker(Photo.search, text="bague boucheron quatre")
+for photo in w:
+    #print(photo.__dict__)
+    print(photo.url_n)
+    file_path = urlparse(photo.url_n)
+    urllib.request.urlretrieve(photo.url_n, os.path.basename(file_path.path))
+    break

@@ -7,11 +7,22 @@ from urllib.parse import urlparse
 
 flickr_api.set_keys(api_key = os.environ['FLICKR_KEY'], api_secret = os.environ['FLICKR_SECRET'])
 
-#w = Walker(Photo.search, tags=["boucheron","quatre"], tag_mode="all")
-w = Walker(Photo.search, text="bague boucheron quatre")
+w = Walker(Photo.search, tags="bague,boucheron", tag_mode="all")
+#w = Walker(Photo.search, text="boucheron quatre")
+print(w.__dict__)
+cnt = 1
 for photo in w:
     #print(photo.__dict__)
-    print(photo.url_n)
-    file_path = urlparse(photo.url_n)
-    urllib.request.urlretrieve(photo.url_n, os.path.basename(file_path.path))
-    break
+    try:
+        file_path = urlparse(photo.url_n)
+    except Exception as e:
+        print(e)
+        continue
+
+    try:
+        urllib.request.urlretrieve(photo.url_n, os.path.basename(file_path.path))
+    except Exception:
+        continue
+    cnt += 1
+    if (cnt > 100):
+        break

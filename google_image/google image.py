@@ -1,4 +1,5 @@
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python
+
 """
 Created on Tue Feb 19 10:26:41 2019
 
@@ -29,7 +30,6 @@ bank = []
 startIndex = 1
 
 while startIndex < 100:
-    function url ()
     url = 'https://www.googleapis.com/customsearch/v1?' + 'key=' + key + '&cx=' + cse + '&q=' + q + '&searchType=image' + '&start=' + str(startIndex) 
     result = requests.request("GET", url)
     images = result.json()
